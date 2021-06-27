@@ -1,0 +1,123 @@
+buildscript {
+     repositories {
+        jcenter()
+      }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.8.1"
+      }
+}
+ 
+ // Apply the java-library plugin to add support for Java Library
+apply plugin: 'java-library'
+apply plugin: 'application'
+apply plugin: 'io.qameta.allure'
+
+def allureVersion = "2.14.0"
+def testngVersion = "7.4.0"
+
+allure {
+    autoconfigure = true
+    aspectjweaver = true
+    version = allureVersion
+
+    clean = true
+
+    useTestNG {
+        version = allureVersion
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+mainClassName="bbqa.RunTests"
+version = '0.0.1'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar{
+     manifest {
+       attributes 'Main-Class': 'bbqa.RunTests'
+     } 
+     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }    
+   }
+
+task fatJar(type:Jar){
+     manifest {
+       attributes 'Main-Class':'bbqa.RunTests',
+       'Implementation-Title' : 'BBQA-Fat-Jar',
+       'Implementation-Version' : '0.0.2'
+       
+     } 
+     from {
+      configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+      } 
+      with jar 
+      
+   }
+   
+tasks.withType(Test) {
+     systemProperty "tag", System.getProperty("prop1")
+}
+
+task runTests(type: Test) {
+    useTestNG() {
+        includeGroups System.getProperty('tag', 'NONE')
+        suites '/TestNG.xml'
+    }
+} 
+
+//application {
+//   mainClass.set("bbqa.RunTests")
+// }
+ 
+task runWithJavaExec(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'bbqa.RunTests'
+} 
+
+run {    
+    systemProperty "browserName", System.getProperty("browserName")
+    systemProperty "browserVersion", System.getProperty("browserVersion")
+    systemProperty "useRemoteWebDriver", System.getProperty("useRemoteWebDriver")
+    systemProperty "headless", System.getProperty("headless")
+    systemProperty "proxyEnabled", System.getProperty("proxyEnabled")
+    systemProperty "proxyHost", System.getProperty("proxyHost")
+    systemProperty "proxyPort", System.getProperty("proxyPort")
+    systemProperty "proxyUsername", System.getProperty("proxyUsername")
+    systemProperty "proxyPassword", System.getProperty("proxyPassword")
+    systemProperty "proxyDetails", System.getProperty("proxyDetails")
+}
+   
+dependencies {
+
+// https://mvnrepository.com/artifact/org.testng/testng
+implementation group: 'org.testng', name: 'testng', version: '7.4.0'
+
+// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+
+// https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.4.3'
+
+// https://mvnrepository.com/artifact/com.codoid.products/fillo
+implementation group: 'com.codoid.products', name: 'fillo', version: '1.21' 
+
+// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
+
+// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+
+// https://mvnrepository.com/artifact/io.qameta.allure/allure-testng
+implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.14.0'
+
+// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.10'
+
+
+}

@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BB QA">
+<listeners>
+ <listener class-name="resources.TestListener" />
+</listeners>
+  <test name="Chrome Article CRUD Tests">
+	  <classes>	  
+       <class name="bbqa.ArticleTestCases2">
+       </class>
+    </classes>
+  </test>
+</suite>
