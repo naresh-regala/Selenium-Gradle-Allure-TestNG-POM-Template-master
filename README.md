@@ -11,6 +11,20 @@
 ## Gradle command to run test cases in chrome headless mode without proxy
 - gradlew clean run -Dtag=regression -DbrowserName=chrome -DbrowserVersion=latest -Dheadless=true -DproxyEnabled=false
 
-## Command to generate Allure Report
-- allure serve
+## Install allure ro generate allure report
+ ###  Mac OS X
+ - install allure using below command
+  ```bash
+   brew install allure
+ ```
+ ###  Windows
+ - For Windows, Allure is available from the Scoop commandline-installer.
+ - To install Allure, download and install Scoop and then execute in the Powershell:
+  ```bash
+   scoop install allure
+ ```
+## command to generate the report
+   ```bash
+   allure serve
+ ```
 
