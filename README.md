@@ -8,6 +8,9 @@
 - -Dheadless=true (valid values are: true or false)
 - -DproxyEnabled=false (valid values are: true or false)
 
+## Gradle command to run test cases in chrome without proxy
+- gradlew clean run -Dtag=regression -DbrowserName=chrome -DbrowserVersion=latest -Dheadless=false -DproxyEnabled=false
+ 
 ## Gradle command to run test cases in chrome headless mode without proxy
 - gradlew clean run -Dtag=regression -DbrowserName=chrome -DbrowserVersion=latest -Dheadless=true -DproxyEnabled=false
 
