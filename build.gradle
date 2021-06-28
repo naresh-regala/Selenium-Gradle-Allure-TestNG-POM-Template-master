@@ -68,18 +68,7 @@ task runTests(type: Test) {
         suites '/TestNG.xml'
     }
 } 
-
-//application {
-//   mainClass.set("bbqa.RunTests")
-// }
  
-task runWithJavaExec(type: JavaExec) {
-    group = "Execution"
-    description = "Run the main class with JavaExecTask"
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'bbqa.RunTests'
-} 
-
 run {    
     systemProperty "browserName", System.getProperty("browserName")
     systemProperty "browserVersion", System.getProperty("browserVersion")
