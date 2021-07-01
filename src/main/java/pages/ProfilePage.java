@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.qameta.allure.Step;
+import resources.Logg;
 
 public class ProfilePage {
 	WebDriver driver;
@@ -37,8 +38,8 @@ public class ProfilePage {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0,250)");
 		explicitWaitForElementVisbility(articleElement);
-		System.out.println(articleList.size());
-		System.out.println("Profile Page: Click on article Link");
+		Logg.info("Size of articleList "+articleList.size());
+		Logg.info("Profile Page: Click on article Link");
 		articleList.get(0).click();
 	}
 

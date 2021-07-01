@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.qameta.allure.Step;
+import resources.Logg;
 
 public class BBlogLoginPage {
 	WebDriver driver;
@@ -55,11 +56,8 @@ public class BBlogLoginPage {
 	@Step("Login Step with username: {0} and password: {1} for method {method} ..")
 	public void loginToBBlog(String sUserName, String sPasword) throws InterruptedException {
 
-		// Fill user name
 		this.setUserName(sUserName);
-		// Fill password
 		this.setPassword(sPasword);
-		// Click Login button
 		this.clickSignIn();		
 	}
 	
@@ -68,7 +66,7 @@ public class BBlogLoginPage {
 		explicitWaitForElementVisbility(editorLink);
 		Actions action = new Actions(driver);
 		action.moveToElement(editorLink).click().build().perform();
-		System.out.println("Home page: editor ink is clicked");
+        Logg.info("Home page: editor ink is clicked");
 	}
 	
 	@Step("Explicit wait for the presence of Element {0}")
@@ -81,6 +79,6 @@ public class BBlogLoginPage {
 		wait.until(ExpectedConditions.visibilityOf(profileLink));
 		Actions action = new Actions(driver);
 		action.moveToElement(profileLink).click().build().perform();
-		System.out.println("I am in profile page");
+		Logg.info("I am in profile page");
 	}
 }

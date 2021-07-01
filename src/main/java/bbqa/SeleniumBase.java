@@ -2,8 +2,7 @@ package bbqa;
 
 import java.util.Collections;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,24 +12,32 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import resources.Logg;
 
 public class SeleniumBase extends RunTests {
 
-	private static WebDriver driver;
-	private static final Logger LOG = (Logger) LogManager.getLogger(SeleniumBase.class);
+	private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+	public static String getInfo() {
+		Capabilities cap = ((RemoteWebDriver) SeleniumBase.getDriver()).getCapabilities();
+		String browserName = cap.getBrowserName();
+		String platform = cap.getPlatform().toString();
+		String version = cap.getVersion();
+		return String.format("browser: %s v: %s platform: %s", browserName, version, platform);
+	}
 
 	@BeforeMethod(alwaysRun = true)
 	public void setUpDriver() {
 		DesiredCapabilities capabilities = null;
-		if (browserName.equalsIgnoreCase("chrome")) {
-			System.out.println(browserName);
-			LOG.info("Launching CHROME browser");
+		if (getBrowserName().equalsIgnoreCase("chrome")) {
+			System.out.println(getBrowserName());
+			Logg.info("Launching CHROME browser");
 			WebDriverManager.chromedriver().browserVersion(browserVersion).setup();
 			/*
 			 * HashMap<String, Object> chromePreferences = new HashMap<>();
@@ -48,8 +55,8 @@ public class SeleniumBase extends RunTests {
 			setDriver(new ChromeDriver(options));
 			getDriver().manage().window().maximize();
 
-		} else if (browserName.equalsIgnoreCase("firefox")) {
-			LOG.info("Launching FIREFOX browser");
+		} else if (getBrowserName().equalsIgnoreCase("firefox")) {
+			Logg.info("Launching FIREFOX browser");
 			WebDriverManager.firefoxdriver().driverVersion(browserVersion).setup();
 			capabilities = DesiredCapabilities.firefox();
 			FirefoxOptions options = new FirefoxOptions();
@@ -61,8 +68,8 @@ public class SeleniumBase extends RunTests {
 			setDriver(new FirefoxDriver(options));
 			getDriver().manage().window().maximize();
 
-		} else if (browserName.equalsIgnoreCase("edge")) {
-			LOG.info("Launching EDGE browser");
+		} else if (getBrowserName().equalsIgnoreCase("edge")) {
+			Logg.info("Launching EDGE browser");
 			capabilities = DesiredCapabilities.edge();
 			capabilities.setCapability("screenResolution", "1280x1024");
 			EdgeOptions options = new EdgeOptions();
@@ -74,7 +81,7 @@ public class SeleniumBase extends RunTests {
 			getDriver().manage().window().maximize();
 
 		} else {
-			LOG.info("Launching CHROME browser");
+			Logg.info("Launching CHROME browser");
 			WebDriverManager.chromedriver().browserVersion(browserVersion).setup();
 			capabilities = DesiredCapabilities.chrome();
 			ChromeOptions options = new ChromeOptions();
@@ -101,23 +108,25 @@ public class SeleniumBase extends RunTests {
 	@AfterMethod(alwaysRun = true)
 	public void clearCookies() {
 		if (driver != null) {
-			driver.manage().deleteAllCookies();
+			driver.get().manage().deleteAllCookies();
 			System.out.println("deleted cookies");
-			driver.close();
+			driver.get().close();
 		}
 	}
 
 	@AfterClass(alwaysRun = true)
 	public void tearDown() {
 		if (driver != null) {
-			driver.quit();
+			driver.get().quit();
+			driver.remove();
 		}
 	}
+
 	public static WebDriver getDriver() {
-		return driver;
+		return driver.get();
 	}
 
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
+	public static void setDriver(WebDriver driver) {
+		SeleniumBase.driver.set(driver);
 	}
 }

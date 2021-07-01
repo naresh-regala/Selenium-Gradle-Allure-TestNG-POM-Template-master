@@ -38,7 +38,7 @@ public class EditDeleteArticlePage {
 		editButton.click();
 	}
 
-	@Step("Click Edit Buttom")
+	@Step("Clicking delete button")
 	public void clickDeleteButton() {
 		wait.until(ExpectedConditions.visibilityOf(deleteButton));
 		Actions action = new Actions(driver);

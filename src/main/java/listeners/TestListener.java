@@ -1,4 +1,4 @@
-package resources;
+package listeners;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,55 +13,58 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import bbqa.SeleniumBase;
+import io.qameta.allure.Step;
+import resources.Logg;
 
 public class TestListener extends SeleniumBase implements ITestListener {
 
-	private static final Logger LOG = (Logger) LogManager.getLogger(TestListener.class);
-
+	@Step
 	@Override
 	public void onFinish(ITestContext Result) {
 
 	}
 
+	@Step
 	@Override
 	public void onStart(ITestContext Result) {
 
 	}
 
+	@Step
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult Result) {
 
 	}
 
-	// When Test case get failed, this method is called.
+	@Step
 	@Override
 	public void onTestFailure(ITestResult Result) {
-		LOG.warn("The name of the testcase failed is :" + Result.getName());
+		Logg.warn("The name of the testcase failed is :" + Result.getName());
 		File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
 		try {
 			FileUtils.copyFile(scrFile,
 					new File("FailedScreenShots/" + Result.getName() + System.currentTimeMillis() + ".png"));
 		} catch (IOException e) {
-			LOG.error(e.getMessage());
+			Logg.error(e.getMessage());
 		}
 	}
 
-	// When Test case get Skipped, this method is called.
+	@Step
 	@Override
 	public void onTestSkipped(ITestResult Result) {
-		LOG.warn("The name of the testcase Skipped is :" + Result.getName());
+		Logg.warn("The name of the testcase Skipped is :" + Result.getName());
 	}
 
-	// When Test case get Started, this method is called.
+	@Step
 	@Override
 	public void onTestStart(ITestResult Result) {
-		Log.info(Result.getName() + " test case started");
+		Logg.info(Result.getName() + " test case started");
 	}
 
-	// When Test case get passed, this method is called.
+	@Step
 	@Override
 	public void onTestSuccess(ITestResult Result) {
-		Log.info("The name of the testcase passed is :" + Result.getName());
+		Logg.info("The name of the testcase passed is :" + Result.getName());
 	}
 
 }

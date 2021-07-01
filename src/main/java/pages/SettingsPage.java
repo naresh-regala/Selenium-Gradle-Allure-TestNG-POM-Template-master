@@ -25,6 +25,7 @@ public class SettingsPage {
 		PageFactory.initElements(driver, this);
 	}
 	
+	@Step
 	public void clickLogout() {
 		explicitWaitForElementVisbility(logoutButton);
 		Actions actions = new Actions(driver);

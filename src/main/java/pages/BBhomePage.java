@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.qameta.allure.Step;
+import resources.Logg;
 import resources.Utils;
 
 public class BBhomePage {
@@ -36,7 +37,7 @@ public class BBhomePage {
 		explicitWaitForElementVisbility(SigninButton);
 		Actions action1 = new Actions(driver);
 		action1.moveToElement(SigninButton).click().build().perform();
-		System.out.println("HomePage: SignIn button is clicked");
+		Logg.info("HomePage: SignIn button is clicked");
 
 	}
 
@@ -45,6 +46,7 @@ public class BBhomePage {
 		explicitWaitForElementVisbility(settings);
 		Actions actions = new Actions(driver);
 		actions.moveToElement(settings).click().build().perform();
+		Logg.info("HomePage: going to settings page");
 	}
 
 	@Step("Explicit wait for the presence of Element {0}")

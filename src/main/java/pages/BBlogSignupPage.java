@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import io.qameta.allure.Step;
+
 public class BBlogSignupPage {
 
 	WebDriver driver;
@@ -25,35 +27,32 @@ public class BBlogSignupPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	// Set username in textbox
+	@Step
 	public void setUserName(String sUserName) {
 		Username.sendKeys(sUserName);
 	}
 
-	// Set Email in textbox
+	@Step
 	public void setEmail(String sEmail) {
 		Username.sendKeys(sEmail);
 	}
 
-	// Set password in password textbox
+	@Step
 	public void setPassword(String sPassword) {
 		Password.sendKeys(sPassword);
 	}
 
-	// Click on login button
+	@Step
 	public void clickSignupButton() {
 		Signup.click();
 	}
 
+	@Step
 	public void signupToBBlog(String sUserName, String sEmail, String sPasword) {
 
-		// Fill user name
 		this.setUserName(sUserName);
-		// Fill Email
 		this.setEmail(sEmail);
-		// Fill password
 		this.setPassword(sPasword);
-		// Click Login button
 		this.clickSignupButton();
 	}
 

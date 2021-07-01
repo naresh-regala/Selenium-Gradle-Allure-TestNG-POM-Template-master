@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import io.qameta.allure.Step;
+import resources.Logg;
 
 public class CreatePostPage {
 
@@ -41,6 +42,7 @@ public class CreatePostPage {
 		PageFactory.initElements(driver, this);
 	}
 
+	@Step("Creating post with {0} {1} {2} {3}")
 	public void createPost(String sArticleTitle, String sArticleAbout, String sArticleDescription, String sArticleTags)
 			throws InterruptedException {
 		wait.until(ExpectedConditions.visibilityOf(articleTitle));
@@ -57,6 +59,7 @@ public class CreatePostPage {
 		actions.moveToElement(publichArtilcleButton).click().build().perform();
 	}
 
+	@Step
 	public boolean verifyEditedPost(String addedText) {
 		boolean editSuccess = false;
 		if (articleTitle.getAttribute("value").contains(addedText) && articleAbout.getAttribute("value").contains(addedText)
@@ -71,7 +74,7 @@ public class CreatePostPage {
 	public void verifyPostPublishSuccess() {
 		explicitWaitForElementVisbility(author);
 		articleUrl =driver.getCurrentUrl();
-		System.out.println(articleUrl);
+		Logg.info(articleUrl);
 		Assert.assertEquals(driver.getCurrentUrl().contains("article"), true);
 	}
 	

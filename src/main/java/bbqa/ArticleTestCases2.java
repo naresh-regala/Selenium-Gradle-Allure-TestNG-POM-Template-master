@@ -88,7 +88,7 @@ public class ArticleTestCases2 extends SeleniumBase {
 	}
 
 	@Test(dataProvider = "inputData", description = "Verify create articles With Dfferrent Kinds Of Text ex:javascript, emojis etc", priority = 4, groups = {
-			"regression", "smoke" })
+			"regression"})
 	public void createArticlesWithDfferrentKindsOfText(String testCaseName, String title, String about, String desc,
 			String tag) throws InterruptedException, IOException {
 		System.out.println("executing: " + testCaseName);

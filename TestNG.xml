@@ -1,9 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="BB QA">
 <listeners>
- <listener class-name="resources.TestListener" />
+ <listener class-name="listeners.TestListener" />
+ <listener class-name="listeners.ConfigureSuite" />
 </listeners>
-  <test name="Chrome Article CRUD Tests">
+  <test name="Article CRUD Tests" parallel="methods">
 	  <classes>	  
        <class name="bbqa.ArticleTestCases2">
        </class>

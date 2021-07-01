@@ -59,17 +59,19 @@ task fatJar(type:Jar){
    }
    
 tasks.withType(Test) {
-     systemProperty "tag", System.getProperty("prop1")
+     systemProperty "tag", System.getProperty("tag")
 }
 
 task runTests(type: Test) {
     useTestNG() {
         includeGroups System.getProperty('tag', 'NONE')
-        suites '/TestNG.xml'
+        suites '/TestNG.xml'        
     }
 } 
  
-run {    
+run {
+    //includeGroups System.getProperty('tag', 'NONE')
+    systemProperty "threadcount", System.getProperty("threadcount")
     systemProperty "browserName", System.getProperty("browserName")
     systemProperty "browserVersion", System.getProperty("browserVersion")
     systemProperty "useRemoteWebDriver", System.getProperty("useRemoteWebDriver")
@@ -108,5 +110,7 @@ implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.14.
 // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
 implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.10'
 
+// https://mvnrepository.com/artifact/com.github.automatedowl/allure-environment-writer
+implementation group: 'com.github.automatedowl', name: 'allure-environment-writer', version: '1.0.0'
 
 }
