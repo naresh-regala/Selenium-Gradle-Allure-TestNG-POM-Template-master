@@ -1,8 +1,8 @@
 # Selenium-Gradle-Allure-TestNG-POM-Template
 - template for Selenium3 + Gradle + Allure + TestNG + POM
 
-## Gradle command parameters
-- -Dthreadcount (You can configure number of parallel threads for methods here )
+## Gradle command parameters to configure threadcount for parallel execution
+- -Dthreadcount (You can configure number of parallel threads for methods )
 - -Dtag=regression (valid values are: regression, smoke)
 - -DbrowserName=chrome (valid values are: chrome, firefox, edge)
 - -DbrowserVersion=latest (any valid version. to run on browser latest version you can provide <latest>. else you can provide specifice verison ex:91.0.4472.123) 
