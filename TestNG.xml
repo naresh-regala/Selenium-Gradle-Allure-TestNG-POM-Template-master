@@ -5,11 +5,8 @@
  <listener class-name="listeners.ConfigureSuite" />
 </listeners>
   <test name="Article CRUD Tests" >
-	  <classes>	  
+    <classes>	  
        <class name="bbqa.ArticleTestCases2">
-       <methods>
-       <include name="createAndPublishArticle" />
-       </methods>
        </class>
     </classes>
   </test>
