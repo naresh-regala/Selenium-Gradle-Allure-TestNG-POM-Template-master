@@ -4,9 +4,12 @@
  <listener class-name="listeners.TestListener" />
  <listener class-name="listeners.ConfigureSuite" />
 </listeners>
-  <test name="Article CRUD Tests" parallel="methods">
+  <test name="Article CRUD Tests" >
 	  <classes>	  
        <class name="bbqa.ArticleTestCases2">
+       <methods>
+       <include name="createAndPublishArticle" />
+       </methods>
        </class>
     </classes>
   </test>
