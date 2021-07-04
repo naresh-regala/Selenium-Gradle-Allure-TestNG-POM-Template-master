@@ -18,7 +18,7 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    tasks: 'clean build run -Dthreadcount=2 -DbrowserName=chrome -DbrowserVersion=latest -Dheadless=false -DproxyEnabled=false'
+    tasks: 'clean build run -Dthreadcount=1 -DbrowserName=chrome -DbrowserVersion=latest -Dheadless=false -DproxyEnabled=false'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     testRunTitle: 'First sample run'
