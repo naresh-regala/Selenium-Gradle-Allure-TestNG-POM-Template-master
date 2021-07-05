@@ -1,4 +1,4 @@
-# Selenium-Gradle-Allure-TestNG-POM-Template
+# Selenium-Gradle-Allure-TestNG-POM-Template with Github and Azure CI pipelines
 - template for Selenium3 + Gradle + Allure + TestNG + POM
 
 ## Gradle command parameters to configure threadcount for parallel execution
