@@ -31,4 +31,6 @@
    ```bash
    allure serve
  ```
+ 
+ ## You can run the scripts on github using GitHub Actions. You can find the .yml file in current project .github/workflows
 
