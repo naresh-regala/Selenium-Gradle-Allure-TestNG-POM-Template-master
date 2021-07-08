@@ -27,6 +27,5 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     sqGradlePluginVersionChoice: 'specify'
     sonarQubeGradlePluginVersion: '2.6.1'
-    spotBugsAnalysis: false@2
   
     
